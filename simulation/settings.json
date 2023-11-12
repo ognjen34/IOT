@@ -1,0 +1,27 @@
+{
+    "RDHT1": {
+        "simulated": true,
+        "pin": 17
+    } ,
+    "RDHT2": {
+        "simulated": true,
+        "pin": 17
+    } ,
+    "DUS1": {
+        "simulated": true,
+        "triger_pin": 23,
+        "echo_pin": 24
+
+        
+    } ,
+    "DL" : 
+    {
+        "simulated" :true,
+        "pin" :17,
+        "on_key" :"X",
+        "off_key" :"Y"
+
+        
+    }
+    
+}
