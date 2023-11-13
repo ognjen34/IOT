@@ -19,16 +19,20 @@ def db_callback(action,code):
 
 def run_db(settings, threads, stop_event,queue):
         if settings['simulated']:
-            print("Starting db sumilator")
+            with threading.Lock():
+                print("Starting db sumilator")
             db_thread = threading.Thread(target = run_db_simulator, args=(queue,1000, db_callback, stop_event))
             db_thread.start()
             threads.append(db_thread)
-            print("db sumilator started")
+            with threading.Lock():
+                print("db sumilator started")
         else:
             from sensors.db import run_db_loop, DB
-            print("Starting db loop")
+            with threading.Lock():
+                print("Starting db loop")
             db = DB(settings['pin'])
             db_thread = threading.Thread(target=run_db_loop, args=(db, 1000,0.1,2, db_callback, stop_event,queue))
             db_thread.start()
             threads.append(db_thread)
-            print("db loop started")
+            with threading.Lock():
+                print("db loop started")

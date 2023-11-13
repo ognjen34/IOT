@@ -6,6 +6,9 @@ from components.dus import run_dus
 from components.dl import run_dl
 from components.ds import run_ds
 from components.db import run_db
+from components.pir import run_pir
+from components.dms import run_dms
+
 
 
 import time
@@ -48,13 +51,20 @@ if __name__ == "__main__":
         dl_settings = settings['DL']
         ds1_settings = settings['DS1']
         db_settings = settings['DB']
+        dpir1_settings = settings['DPIR1']
+        dms_settings = settings['DMS']
 
 
-
-        #run_dus(dus1_settings, threads, stop_event)
+        run_dus(dus1_settings, threads, stop_event)
         run_db(db_settings,threads,stop_event,input_queue)
-        #run_ds(dl_settings,"Door button",threads,stop_event)
+        run_ds(dl_settings,"Door button",threads,stop_event)
 
+        
+
+        run_dus(dus1_settings, threads, stop_event)
+        run_dl(dl_settings,threads,stop_event,input_queue)
+        run_pir(dpir1_settings, threads, stop_event, "DPIR1")
+        run_dms(dms_settings, threads, stop_event, 'DMS')
 
         input_thread = threading.Thread(target=user_input_thread, args=(input_queue, stop_event,settings))
         input_thread.start()
