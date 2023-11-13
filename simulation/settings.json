@@ -27,7 +27,7 @@
         "simulated": true,
         "pin": 17
       },
-      "DMS": {
+    "DMS": {
         "simulated": true,
         "R1": 25,
         "R2": 8,
@@ -37,6 +37,6 @@
         "C2": 16,
         "C3": 20,
         "C4": 21
-      }
+    }
     
 }

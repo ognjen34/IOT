@@ -4,7 +4,7 @@ import RPi.GPIO as GPIO
 
 class DMS:
 
-    def __init__(self, settings):
+    def __init__(self, settings, name):
         self.R1 = settings["R1"]
         self.R2 = settings["R2"]
         self.R3 = settings["R3"]
@@ -13,7 +13,7 @@ class DMS:
         self.C2 = settings["C2"]
         self.C3 = settings["C3"]
         self.C4 = settings["C4"]
-        self.name = settings["name"]
+        self.name = name
         self.pass_code = ""
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
@@ -45,7 +45,7 @@ class DMS:
             self.pass_code += current_key
             print(self.pass_code)
 
-    def get_pass(self):
+    def get_passcode(self):
         self.read_char(self.R1, ["1", "2", "3", "A"])
         self.read_char(self.R2, ["4", "5", "6", "B"])
         self.read_char(self.R3, ["7", "8", "9", "C"])
@@ -53,10 +53,10 @@ class DMS:
         return self.pass_code
 
 
-def run_ms_loop(ms, delay, callback, stop_event):
+def run_dms_loop(dms, delay, callback, stop_event):
     while True:
-        passcode = ms.get_pass()
-        callback(passcode, ms.name)
+        passcode = dms.get_pass()
+        callback(passcode, dms.name)
         if stop_event.is_set():
             break
-        time.sleep(delay)  # Delay between readings
+        time.sleep(delay) 
