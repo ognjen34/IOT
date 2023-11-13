@@ -4,6 +4,10 @@ from settings import load_settings
 from components.dht import run_dht
 from components.dus import run_dus
 from components.dl import run_dl
+from components.pir import run_pir
+from components.dms import run_dms
+
+
 
 import time
 from queue import Queue
@@ -39,13 +43,17 @@ if __name__ == "__main__":
         dht1_settings = settings['RDHT1']
         dus1_settings = settings['DUS1']
         dl_settings = settings['DL']
+        dpir1_settings = settings['DPIR1']
+        dms_settings = settings['DMS']
 
         #run_dus(dus1_settings, threads, stop_event)
-        run_dl(dl_settings,threads,stop_event,input_queue)
+        #run_dl(dl_settings,threads,stop_event,input_queue)
+        #run_pir(dpir1_settings, threads, stop_event, "DPIR1")
+        run_dms(dms_settings, threads, stop_event, 'DMS')
 
-        input_thread = threading.Thread(target=user_input_thread, args=(input_queue, stop_event,settings))
-        input_thread.start()
-        threads.append(input_thread)
+        #input_thread = threading.Thread(target=user_input_thread, args=(input_queue, stop_event,settings))
+        #input_thread.start()
+        #threads.append(input_thread)
 
         
         while True:
