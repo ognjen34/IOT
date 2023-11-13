@@ -21,7 +21,18 @@
         "on_key" :"X",
         "off_key" :"Y"
 
-        
+    },
+    "DS1" :
+    {
+        "simulated":true,
+        "pin" :17
+    },
+    "DB" :
+    {
+        "simulated":true,
+        "pin" :17,
+        "on_key" :"B",
+        "off_key" :"S"
     }
     
 }
