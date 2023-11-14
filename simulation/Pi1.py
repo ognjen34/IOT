@@ -52,6 +52,8 @@ if __name__ == "__main__":
         ds1_settings = settings['DS1']
         db_settings = settings['DB']
         dpir1_settings = settings['DPIR1']
+        rpir1_settings = settings['RPIR1']
+        rpir2_settings = settings['RPIR2']
         dms_settings = settings['DMS']
 
 
@@ -64,6 +66,8 @@ if __name__ == "__main__":
         run_dus(dus1_settings, threads, stop_event)
         run_dl(dl_settings,threads,stop_event,input_queue)
         run_pir(dpir1_settings, threads, stop_event, "DPIR1")
+        run_pir(rpir1_settings, threads, stop_event, "RPIR1")
+        run_pir(rpir2_settings, threads, stop_event, "RPIR2")
         run_dms(dms_settings, threads, stop_event, 'DMS')
 
         input_thread = threading.Thread(target=user_input_thread, args=(input_queue, stop_event,settings))
