@@ -1,7 +1,9 @@
 {
     "RDHT1": {
         "simulated": true,
-        "pin": 17
+        "pin": 17,
+        "runs_on": "PI1",
+        "name": "DHT1 - Hallway"
     } ,
     "RDHT2": {
         "simulated": true,

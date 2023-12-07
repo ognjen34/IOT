@@ -47,28 +47,29 @@ if __name__ == "__main__":
     stop_event = threading.Event()
     try:
         dht1_settings = settings['RDHT1']
-        dus1_settings = settings['DUS1']
-        dl_settings = settings['DL']
-        ds1_settings = settings['DS1']
-        db_settings = settings['DB']
-        dpir1_settings = settings['DPIR1']
-        rpir1_settings = settings['RPIR1']
-        rpir2_settings = settings['RPIR2']
-        dms_settings = settings['DMS']
+        #dus1_settings = settings['DUS1']
+        #dl_settings = settings['DL']
+        #ds1_settings = settings['DS1']
+        #db_settings = settings['DB']
+        #dpir1_settings = settings['DPIR1']
+        #rpir1_settings = settings['RPIR1']
+        #rpir2_settings = settings['RPIR2']
+        #dms_settings = settings['DMS']
 
 
-        run_dus(dus1_settings, threads, stop_event)
-        run_db(db_settings,threads,stop_event,input_queue)
-        run_ds(dl_settings,"Door button",threads,stop_event)
+        #run_dus(dus1_settings, threads, stop_event)
+        #run_db(db_settings,threads,stop_event,input_queue)
+        #run_ds(dl_settings,"Door button",threads,stop_event)
+        run_dht(dht1_settings, threads, stop_event)
 
         
 
-        run_dus(dus1_settings, threads, stop_event)
-        run_dl(dl_settings,threads,stop_event,input_queue)
-        run_pir(dpir1_settings, threads, stop_event, "DPIR1")
-        run_pir(rpir1_settings, threads, stop_event, "RPIR1")
-        run_pir(rpir2_settings, threads, stop_event, "RPIR2")
-        run_dms(dms_settings, threads, stop_event, 'DMS')
+        #run_dus(dus1_settings, threads, stop_event)
+        #run_dl(dl_settings,threads,stop_event,input_queue)
+        #run_pir(dpir1_settings, threads, stop_event, "DPIR1")
+        #run_pir(rpir1_settings, threads, stop_event, "RPIR1")
+        #run_pir(rpir2_settings, threads, stop_event, "RPIR2")
+        #run_dms(dms_settings, threads, stop_event, 'DMS')
 
         input_thread = threading.Thread(target=user_input_thread, args=(input_queue, stop_event,settings))
         input_thread.start()
