@@ -36,10 +36,10 @@ class DUS(object):
         distance = (pulse_duration * 34300)/2
         return distance
 
-def run_dus_loop(dus, delay, callback, stop_event):
+def run_dus_loop(dus, delay, callback, stop_event,publish_event,settings):
 		while True:
 			distance = dus.get_distance()
-			callback(distance,0)
+			callback(distance,publish_event,settings)
 			if stop_event.is_set():
 					break
 			time.sleep(delay)

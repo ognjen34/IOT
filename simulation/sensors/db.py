@@ -20,15 +20,17 @@ class DB(object):
             time.sleep(delay)
            
 
-def run_db_loop(buzzer, pitch, duration, delay, stop_event,queue):
+def run_db_loop(buzzer, pitch, duration, delay,callback, stop_event,queue,publish_event, settings):
     while True:
         try:
             action = queue.get(timeout=1)
             if action == "buzz":
                 buzzer.buzz(pitch, duration)
+                callback(1,publish_event, settings)
         except Empty:
             pass
         if stop_event.is_set():
             GPIO.cleanup()
+            callback(0,publish_event, settings)
             break
         time.sleep(delay)

@@ -14,18 +14,18 @@ class DL(object):
     def turn_off(self):
         GPIO.output(self.pin, GPIO.LOW)
 
-def run_dl_loop(input_queue, dl, delay, callback, stop_event):
+def run_dl_loop(input_queue, dl, delay, callback, stop_event,publish_event, settings):
     while True:
         try:
             action = input_queue.get(timeout=1)
-            status = "OFF"
+            status = 0
             if action == "turn_on":
                 dl.turn_on()
-                status = "ON"
+                status = 1
             elif action == "turn_off":
                 dl.turn_off()
 
-            callback(status)
+            callback(status,publish_event,settings)
         except Empty:
             pass
 

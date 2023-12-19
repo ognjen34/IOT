@@ -18,10 +18,10 @@ class DS(object):
         
 
 
-def run_ds_loop(ds,delay,name, callback, stop_event):
+def run_ds_loop(ds,delay, callback, stop_event,publish_event,settings):
 		while True:
 			ds.press()
-			callback(name, 0)
+			callback(publish_event,settings)
 			if stop_event.is_set():
 					break
 			time.sleep(delay)  

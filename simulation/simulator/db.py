@@ -2,12 +2,12 @@ import time
 from queue import Empty
 import threading
 
-def run_db_simulator(queue, pitch, callback, stop_event):
+def run_db_simulator(queue, pitch, callback, stop_event, publish_event, settings):
     while not stop_event.is_set():
         try:
             action = queue.get(timeout=1)
             if action == "buzz":
-                callback('on',0)             
+                callback(1,publish_event,settings)             
                 with threading.Lock():
                     p = "z"
                     if pitch > 500:
@@ -15,7 +15,7 @@ def run_db_simulator(queue, pitch, callback, stop_event):
                     if pitch > 800:
                         p="Z!"
                     while True:
-                        print(p)
+                        callback(1,publish_event,settings) 
                         try:
                             sub_action = queue.get(timeout=0.1)
                             print(sub_action)
@@ -25,7 +25,8 @@ def run_db_simulator(queue, pitch, callback, stop_event):
                                 break
                         except Empty:
                             pass
-                        time.sleep(0.1)
-                callback('off',0)             
+                        time.sleep(0.5)
+                time.sleep(1)
+                callback(0,publish_event,settings)             
         except Empty:
             pass

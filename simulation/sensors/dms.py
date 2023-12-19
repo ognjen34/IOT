@@ -4,7 +4,7 @@ import RPi.GPIO as GPIO
 
 class DMS:
 
-    def __init__(self, settings, name):
+    def __init__(self, settings):
         self.R1 = settings["R1"]
         self.R2 = settings["R2"]
         self.R3 = settings["R3"]
@@ -13,7 +13,7 @@ class DMS:
         self.C2 = settings["C2"]
         self.C3 = settings["C3"]
         self.C4 = settings["C4"]
-        self.name = name
+        self.name = settings['name']
         self.pass_code = ""
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
@@ -53,10 +53,10 @@ class DMS:
         return self.pass_code
 
 
-def run_dms_loop(dms, delay, callback, stop_event):
+def run_dms_loop(dms, delay, callback, stop_event,publish_event,settings):
     while True:
         passcode = dms.get_pass()
-        callback(passcode, dms.name)
+        callback(passcode,publish_event,settings)
         if stop_event.is_set():
             break
         time.sleep(delay) 

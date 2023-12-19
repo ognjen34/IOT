@@ -10,10 +10,10 @@ def generate_values(initial_distance = 15):
 
       
 
-def run_dus_simulator(delay, callback, stop_event):
+def run_dus_simulator(delay, callback, stop_event,publish_event,settings):
         for d in generate_values():
             time.sleep(delay)  
-            callback(d, 0)
+            callback(d,publish_event,settings)
             if stop_event.is_set():
                   break
               

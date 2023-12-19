@@ -12,7 +12,9 @@
     "DUS1": {
         "simulated": true,
         "triger_pin": 23,
-        "echo_pin": 24
+        "echo_pin": 24,
+        "runs_on": "PI1",
+        "name": "Door Ultrasonic Sensor - Enterance"
 
         
     } ,
@@ -21,25 +23,34 @@
         "simulated" :true,
         "pin" :17,
         "on_key" :"X",
-        "off_key" :"Y"
+        "off_key" :"Y",
+        "runs_on": "PI1",
+        "name": "DL - Enterance"
 
     },
     "DS1" :
     {
         "simulated":true,
-        "pin" :17
+        "pin" :17,
+        "runs_on": "PI1",
+        "name": "Door Sensor - Enterance"
+        
     },
     "DB" :
     {
         "simulated":true,
         "pin" :17,
         "on_key" :"B",
-        "off_key" :"S"
+        "off_key" :"S",
+        "runs_on": "PI1",
+        "name": "DoorBuzzer - Enterance"
         
     },
     "DPIR1": {
         "simulated": true,
-        "pin": 17
+        "pin": 17,
+        "runs_on": "PI1",
+        "name": "Motion Sensor - Enterance"
       },
     "DMS": {
         "simulated": true,
@@ -50,15 +61,21 @@
         "C1": 12,
         "C2": 16,
         "C3": 20,
-        "C4": 21
+        "C4": 21,
+        "runs_on": "PI1",
+        "name": "Membrane Switch - Enterance"
     },
     "RPIR1":{
         "simulated": true,
-        "pin": 17
+        "pin": 17,
+        "runs_on": "PI1",
+        "name": "Motion Sensor - Room1"
     },
     "RPIR2":{
         "simulated": true,
-        "pin": 17
+        "pin": 17,
+        "runs_on": "PI1",
+        "name": "Motion Sensor - Room2"
     }
     
 }

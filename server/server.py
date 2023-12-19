@@ -24,6 +24,15 @@ mqtt_client.loop_start()
 def on_connect(client, userdata, flags, rc):
     client.subscribe("Temperature")
     client.subscribe("Humidity")
+    client.subscribe("DoorLight")
+    client.subscribe("Buzzer")
+    client.subscribe("Distance")
+    client.subscribe("Keystroke")
+    client.subscribe("Button")
+
+
+
+
 
 mqtt_client.on_connect = on_connect
 mqtt_client.on_message = lambda client, userdata, msg: save_to_db(json.loads(msg.payload.decode('utf-8')))
@@ -38,6 +47,7 @@ def save_to_db(data):
         .tag("name", data["name"])
         .field("measurement", data["value"])
     )
+    print(point)
     write_api.write(bucket=bucket, org=org, record=point)
 
 

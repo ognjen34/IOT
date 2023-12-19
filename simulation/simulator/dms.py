@@ -11,9 +11,9 @@ def generate_values(delay):
         keyboard_input = keyboard_inputs[input]
         yield keyboard_input
 
-def run_dms_simualtor(delay, callback, name, stop_event):
+def run_dms_simualtor(delay, callback, stop_event,publish_event,settings):
     for keyboard_input in generate_values(delay):
         with threading.Lock():
-            callback(keyboard_input, name)
+            callback(keyboard_input,publish_event,settings)
         if stop_event.is_set():
                 break
