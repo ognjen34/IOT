@@ -1,5 +1,7 @@
 
 import threading
+import sys
+sys.path.append('../')
 from settings import load_settings
 from components.dht import run_dht
 from components.dus import run_dus
