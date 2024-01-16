@@ -1,0 +1,65 @@
+import RPi.GPIO as GPIO
+from datetime import datetime
+import time
+
+class IrReceiver(object):
+    Buttons = [0x300ff22dd, 0x300ffc23d, 0x300ff629d, 0x300ffa857, 0x300ff9867, 0x300ffb04f, 0x300ff6897, 0x300ff02fd, 0x300ff30cf, 0x300ff18e7, 0x300ff7a85, 0x300ff10ef, 0x300ff38c7, 0x300ff5aa5, 0x300ff42bd, 0x300ff4ab5, 0x300ff52ad]  # HEX code list
+    ButtonsNames = ["LEFT",   "RIGHT",      "UP",       "OFF",       "Cyan",          "Purple",          "Yellow",        "ON",        "4",         "5",         "6",         "7",         "8",          "9",        "*",         "0",        "#"]  # String list in same order as HEX list
+    
+    def __init__(self, settings, stop_event, callback, publish_event):
+        self.pin = settings['pin']
+        self.stop_event = stop_event
+        self.callback = callback
+        self.publish_event = publish_event
+        
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.pin, GPIO.IN)
+    
+    def getBinary(self):
+        # Internal vars
+        num1s = 0  # Number of consecutive 1s read
+        binary = 1  # The binary value
+        command = []  # The list to store pulse times in
+        previousValue = 0  # The last value
+        value = GPIO.input(self.pin)  # The current value
+
+        # Waits for the sensor to pull pin low
+        while value:
+            time.sleep(0.0001) # This sleep decreases CPU utilization immensely
+            value = GPIO.input(self.pin)
+            
+        # Records start time
+        startTime = datetime.now()
+        
+        while True:
+            # If change detected in value
+            if previousValue != value:
+                now = datetime.now()
+                pulseTime = now - startTime #Calculate the time of pulse
+                startTime = now #Reset start time
+                command.append((previousValue, pulseTime.microseconds)) #Store recorded data
+                
+            # Updates consecutive 1s variable
+            if value:
+                num1s += 1
+            else:
+                num1s = 0
+            
+            # Breaks program when the amount of 1s surpasses 10000
+            if num1s > 10000:
+                break
+                
+            # Re-reads pin
+            previousValue = value
+            value = GPIO.input(self.pin)
+            
+    def convertHex(self, binaryValue):
+        tmpB2 = int(str(binaryValue),2)
+        return hex(tmpB2)
+    
+    def run(self):
+        while True:
+            inData = self.convertHex(self.getBinary())
+            for button in range(len(self.Buttons)):
+                if hex(self.Buttons[button]) == inData:
+                    print(self.ButtonsNames[button])

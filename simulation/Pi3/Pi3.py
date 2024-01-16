@@ -9,6 +9,7 @@ from settings import load_settings
 import time
 from queue import Queue
 from components.b4sd import run_b4sd
+from components.ir_receiver import run_ir_receiver
 
 try:
     import RPi.GPIO as GPIO
@@ -42,7 +43,8 @@ if __name__ == "__main__":
     stop_event = threading.Event()
     try:
         #dht1_settings = settings['RDHT1']
-        run_b4sd(settings['B4SD'], threads, stop_event)
+        # run_b4sd(settings['B4SD'], threads, stop_event)
+        run_ir_receiver(settings['BIR'], threads, stop_event)
 
 
        
