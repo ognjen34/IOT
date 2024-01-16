@@ -76,6 +76,15 @@
         "pin": 17,
         "runs_on": "PI1",
         "name": "Motion Sensor - Room2"
+    },
+    "B4SD": {
+        "simulated": true,
+        "code": "B4SD",
+        "name": "Bed room 4 digit 7 segment display",
+        "row": 6,
+        "segments": [11, 4, 23, 8, 7, 10, 18, 25],
+        "digits": [22, 27, 17, 24],
+        "runs_on":"PI3"
     }
     
 }
