@@ -3,6 +3,9 @@ import threading
 import sys
 sys.path.append('../')
 from settings import load_settings
+from components.gsg import run_gsg
+from components.lcd import run_lcd
+
 
 
 
@@ -41,12 +44,16 @@ if __name__ == "__main__":
     threads = []
     stop_event = threading.Event()
     try:
-        #dht1_settings = settings['RDHT1']
-       
+        gsg_settings = settings['GSG']
+        lcd_settings = settings['GLCD']
+
+
 
 
        
-        #run_dht(dht1_settings, threads, stop_event)
+        run_gsg(gsg_settings, threads, stop_event)
+        run_lcd(lcd_settings, threads, stop_event)
+
 
         input_thread = threading.Thread(target=user_input_thread, args=(input_queue, stop_event,settings))
         input_thread.start()

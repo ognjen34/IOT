@@ -76,6 +76,17 @@
         "pin": 17,
         "runs_on": "PI1",
         "name": "Motion Sensor - Room2"
+    },
+    "GSG": {
+        "simulated": true,
+        "name": "GSG - GunSafe",
+        "runs_on": "PI2"
+    },
+    "GLCD": {
+        "simulated": true,
+        "name": "GLCD - Garage",
+        "runs_on": "PI2"
     }
+    
     
 }
