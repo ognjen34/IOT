@@ -77,6 +77,22 @@
         "runs_on": "PI1",
         "name": "Motion Sensor - Room2"
     },
+<<<<<<< HEAD
+    "B4SD": {
+        "simulated": true,
+        "code": "B4SD",
+        "name": "Bedroom 4 digit 7 segment display",
+        "segments": [11, 4, 23, 8, 7, 10, 18, 25],
+        "digits": [22, 27, 17, 24],
+        "runs_on":"PI3"
+    },
+    "BIR": {
+        "simulated": true,
+        "code": "BIR",
+        "name": "Bedroom infrared",
+        "pin": 6,
+        "runs_on":"PI3"
+=======
     "GSG": {
         "simulated": true,
         "name": "GSG - GunSafe",
@@ -86,6 +102,7 @@
         "simulated": true,
         "name": "GLCD - Garage",
         "runs_on": "PI2"
+>>>>>>> f96a8eaec7ef47cab93faad5e80043c2ffb33025
     }
     
     
