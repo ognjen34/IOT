@@ -29,6 +29,8 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe("Distance")
     client.subscribe("Keystroke")
     client.subscribe("Button")
+    client.subscribe("Acceleration")
+    client.subscribe("Gyro")
 
 
 
