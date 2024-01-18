@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-import MPU6050 
+from .MPU6050 import MPU6050
 import time
 import os
 
 class GYRO(object) :
-    def __innit__(self):
-        self.mpu = MPU6050.MPU6050()     
+    def __init__(self):
+        self.mpu = MPU6050()     
         self.accel = [0]*3               
         self.gyro = [0]*3                
         self.mpu.dmp_initialize()    

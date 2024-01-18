@@ -7,7 +7,7 @@ def generate_values(delay):
         value = random.randint(0, 1)
         yield value
     
-def run_pir_simulator(delay, callback, stop_event, publish_event, settings):
+def run_rpir1_simulator(delay, callback, stop_event, publish_event, settings):
     for value in generate_values(delay):
         if value == 0:
             callback( publish_event, settings)

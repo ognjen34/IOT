@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from PCF8574 import PCF8574_GPIO
-from Adafruit_LCD1602 import Adafruit_CharLCD
+from .PCF8574 import PCF8574_GPIO
+from .Adafruit_LCD1602 import Adafruit_CharLCD
 
 from time import sleep, strftime
 from datetime import datetime
@@ -28,6 +28,8 @@ class LCD(object) :
     def display(self,text):
             self.lcd.setCursor(0,0)  
             self.lcd.message( 'Text: ' + text+'\n' )
+            self.lcd.message( 'Text2: ' + "loool:D"+'\n' )
+
             sleep(1)
             
     def destroy(self):

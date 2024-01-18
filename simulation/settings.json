@@ -3,18 +3,20 @@
         "simulated": true,
         "pin": 17,
         "runs_on": "PI1",
-        "name": "DHT1 - Hallway"
+        "name": "DHT - Room1"
     } ,
     "RDHT2": {
         "simulated": true,
-        "pin": 17
+        "pin": 17,
+        "runs_on": "PI1",
+        "name": "DHT - Room2"
     } ,
     "DUS1": {
         "simulated": true,
         "triger_pin": 23,
         "echo_pin": 24,
         "runs_on": "PI1",
-        "name": "Door Ultrasonic Sensor - Enterance"
+        "name": "DUS - Enterance"
 
         
     } ,
@@ -33,7 +35,7 @@
         "simulated":true,
         "pin" :17,
         "runs_on": "PI1",
-        "name": "Door Sensor - Enterance"
+        "name": "DS - Enterance"
         
     },
     "DB" :
@@ -43,14 +45,14 @@
         "on_key" :"B",
         "off_key" :"S",
         "runs_on": "PI1",
-        "name": "DoorBuzzer - Enterance"
+        "name": "DB - Enterance"
         
     },
     "DPIR1": {
         "simulated": true,
         "pin": 17,
         "runs_on": "PI1",
-        "name": "Motion Sensor - Enterance"
+        "name": "MS - Enterance"
       },
     "DMS": {
         "simulated": true,
@@ -63,7 +65,7 @@
         "C3": 20,
         "C4": 21,
         "runs_on": "PI1",
-        "name": "Membrane Switch - Enterance"
+        "name": "DMS - Enterance"
     },
     "RPIR1":{
         "simulated": true,
@@ -75,13 +77,12 @@
         "simulated": true,
         "pin": 17,
         "runs_on": "PI1",
-        "name": "Motion Sensor - Room2"
+        "name": "PIR - Room2"
     },
-<<<<<<< HEAD
     "B4SD": {
         "simulated": true,
         "code": "B4SD",
-        "name": "Bedroom 4 digit 7 segment display",
+        "name": "B4SD - Bedroom",
         "segments": [11, 4, 23, 8, 7, 10, 18, 25],
         "digits": [22, 27, 17, 24],
         "runs_on":"PI3"
@@ -89,21 +90,60 @@
     "BIR": {
         "simulated": true,
         "code": "BIR",
-        "name": "Bedroom infrared",
-        "pin": 6,
-        "runs_on":"PI3"
-=======
+        "name": "BIR- Bedroom",
+        "pin": 17,
+        "runs_on":"PI3"},
     "GSG": {
-        "simulated": true,
-        "name": "GSG - GunSafe",
+        "simulated": false,
+        "name": "GSG - Garage",
         "runs_on": "PI2"
     },
     "GLCD": {
         "simulated": true,
         "name": "GLCD - Garage",
         "runs_on": "PI2"
->>>>>>> f96a8eaec7ef47cab93faad5e80043c2ffb33025
-    }
+    },
+    "DS2" :
+    {
+        "simulated":true,
+        "pin" :17,
+        "runs_on": "PI2",
+        "name": "DS - Garage"
+        
+    },
+    "DUS2": {
+        "simulated": true,
+        "triger_pin": 23,
+        "echo_pin": 24,
+        "runs_on": "PI2",
+        "name": "DUS - Garage"
+
+        
+    } ,
+    "DPIR2": {
+        "simulated": true,
+        "pin": 17,
+        "runs_on": "PI2",
+        "name": "MS- Garage"
+      },
+      "RPIR3": {
+        "simulated": true,
+        "pin": 17,
+        "runs_on": "PI2",
+        "name": "MS - Room3"
+      },
+      "GDHT": {
+        "simulated": true,
+        "pin": 17,
+        "runs_on": "PI2",
+        "name": "DHT - Garage"
+    } ,
+    "RDHT3": {
+      "simulated": true,
+      "pin": 17,
+      "runs_on": "PI2",
+      "name": "DHT - Room3"
+  } 
     
     
 }

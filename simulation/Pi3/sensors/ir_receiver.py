@@ -4,7 +4,7 @@ import time
 
 class IrReceiver(object):
     Buttons = [0x300ff22dd, 0x300ffc23d, 0x300ff629d, 0x300ffa857, 0x300ff9867, 0x300ffb04f, 0x300ff6897, 0x300ff02fd, 0x300ff30cf, 0x300ff18e7, 0x300ff7a85, 0x300ff10ef, 0x300ff38c7, 0x300ff5aa5, 0x300ff42bd, 0x300ff4ab5, 0x300ff52ad]  # HEX code list
-    ButtonsNames = ["LEFT",   "RIGHT",      "UP",       "OFF",       "Cyan",          "Purple",          "Yellow",        "ON",        "4",         "5",         "6",         "7",         "8",          "9",        "*",         "0",        "#"]  # String list in same order as HEX list
+    ButtonsNames = ["LEFT",   "RIGHT",      "UP",       "OFF",       "RED",          "GREEN",          "BLUE",        "ON",        "4",         "5",         "6",         "7",         "8",          "9",        "*",         "0",        "#"]  # String list in same order as HEX list
     
     def __init__(self, settings, stop_event, callback, publish_event):
         self.pin = settings['pin']
@@ -52,6 +52,18 @@ class IrReceiver(object):
             # Re-reads pin
             previousValue = value
             value = GPIO.input(self.pin)
+        for (typ, tme) in command:
+
+            if typ == 1: #If looking at rest period
+                if tme > 1000: #If pulse greater than 1000us
+                    binary = binary *10 +1 #Must be 1
+                else:
+                    binary *= 10 #Must be 0
+                
+        if len(str(binary)) > 34: #Sometimes, there is some stray characters
+            binary = int(str(binary)[:34])
+            
+        return binary
             
     def convertHex(self, binaryValue):
         tmpB2 = int(str(binaryValue),2)

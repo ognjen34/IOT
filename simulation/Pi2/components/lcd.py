@@ -25,7 +25,7 @@ def lcd_callback(text, gsg_settings, code="LCD_OK"):
 def run_lcd(settings, threads, stop_event):
         if settings['simulated']:
             print("Starting lcd sumilator")
-            lcd_thread = threading.Thread(target = run_lcd_simulator, args=(10,"pisa", lcd_callback, stop_event,settings))
+            lcd_thread = threading.Thread(target = run_lcd_simulator, args=(10,"test", lcd_callback, stop_event,settings))
             lcd_thread.start()
             threads.append(lcd_thread)
             print("lcd sumilator started")

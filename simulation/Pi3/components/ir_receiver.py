@@ -20,7 +20,7 @@ def run_ir_receiver(settings, threads, stop_event):
         from sensors.ir_receiver import IrReceiver
         print("Starting ir receiver loop")
         ir = IrReceiver(settings, stop_event, ir_receiver_callback, "publish_event")
-        ir_thread = threading.Thread(target=ir.run(), args=(settings, stop_event, ir_receiver_callback, "publish_event"))
+        ir_thread = threading.Thread(target=ir.run(), args=())
         ir_thread.start()
         threads.append(ir_thread)
         print("ir receiver loop started")
