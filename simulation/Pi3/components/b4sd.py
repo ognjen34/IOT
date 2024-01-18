@@ -37,7 +37,7 @@ def b4sd_callback(settings, s, publish_event):
         "name": settings["name"],
     } 
     with counter_lock:
-        b4sd_data.append(('Button', json.dumps(payload), 0, True))
+        b4sd_data.append(('B4SD', json.dumps(payload), 0, True))
         publish_event.set()
     
 def run_b4sd(settings, threads, stop_event):

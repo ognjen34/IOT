@@ -143,7 +143,17 @@
       "pin": 17,
       "runs_on": "PI2",
       "name": "DHT - Room3"
-  } 
+    },
+    "BRGB": {
+        "simulated": true,
+        "name": "Bedroom RGB",
+        "code": "BRGB",
+        "red_pin": 12,
+        "green_pin": 13,
+        "blue_pin": 19,
+        "runs_on": "PI3"
+
+    } 
     
     
 }

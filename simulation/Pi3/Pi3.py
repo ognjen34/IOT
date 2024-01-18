@@ -10,6 +10,7 @@ import time
 from queue import Queue
 from components.b4sd import run_b4sd
 from components.ir_receiver import run_ir_receiver
+from components.brgb import run_brgb
 
 try:
     import RPi.GPIO as GPIO
@@ -44,7 +45,8 @@ if __name__ == "__main__":
     try:
         #dht1_settings = settings['RDHT1']
         # run_b4sd(settings['B4SD'], threads, stop_event)
-        run_ir_receiver(settings['BIR'], threads, stop_event)
+        #run_ir_receiver(settings['BIR'], threads, stop_event)
+        #run_brgb(settings['BRGB'], threads, stop_event)
 
 
        
