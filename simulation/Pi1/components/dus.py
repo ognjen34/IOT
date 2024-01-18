@@ -52,7 +52,7 @@ def dus_callback(distance,publish_event, db_settings, code="DHTLIB_OK", verbose=
 def run_dus(settings, threads, stop_event):
         if settings['simulated']:
             print("Starting dht1 sumilator")
-            dus1_thread = threading.Thread(target = run_dus_simulator, args=(10, dus_callback, stop_event,publish_event,settings))
+            dus1_thread = threading.Thread(target = run_dus_simulator, args=(dus_callback, stop_event,publish_event,settings))
             dus1_thread.start()
             threads.append(dus1_thread)
             print("Dus sumilator started")
@@ -60,7 +60,7 @@ def run_dus(settings, threads, stop_event):
             from sensors.dus import run_dus_loop, DUS
             print("Starting dht1 loop")
             dus = DUS(settings['triger_pin'],settings['echo_pin'])
-            dus_thread = threading.Thread(target=run_dus_loop, args=(dus, 2, dus_callback, stop_event,publish_event,settings))
+            dus_thread = threading.Thread(target=run_dus_loop, args=(dus, dus_callback, stop_event,publish_event,settings))
             dus_thread.start()
             threads.append(dus_thread)
             print("Dht1 loop started")

@@ -1,11 +1,17 @@
 import RPi.GPIO as GPIO
 import time
+import paho.mqtt.client as mqtt
+from broker_settings import HOSTNAME
 
 class DUS(object):
     def __innit__(self, TRIG_PIN, ECHO_PIN):
         self.TRIG_PIN = TRIG_PIN
         self.ECHO_PIN = ECHO_PIN
-
+        self.mqtt_client = mqtt.Client()
+        self.mqtt_client.connect(HOSTNAME, 1883, 60)
+        self.mqtt_client.loop_start()
+        self.mqtt_client.subscribe("dpir1")
+        self.people_inside = 0
     
     def get_distance(self):
         GPIO.output(self.TRIG_PIN, False)
@@ -35,11 +41,27 @@ class DUS(object):
         pulse_duration = pulse_end_time - pulse_start_time
         distance = (pulse_duration * 34300)/2
         return distance
+    
+    def detected(self,callback,publish_event,settings,message) :
+        detect1= self.get_distance()
+        callback(detect1,publish_event,settings)
+        time.sleep(3)
+        detect2= self.get_distance()
+        callback(detect2,publish_event,settings)
 
-def run_dus_loop(dus, delay, callback, stop_event,publish_event,settings):
-		while True:
-			distance = dus.get_distance()
-			callback(distance,publish_event,settings)
-			if stop_event.is_set():
-					break
-			time.sleep(delay)
+        if detect2 == detect1 :
+            detect2= self.generate_values()
+
+        if detect1 > detect2 :
+            self.people_inside+= 1
+        else :
+            if self.people_inside > 0 :
+                self.people_inside-= 1
+        print(self.people_inside)
+
+
+def run_dus_loop(dus, callback, stop_event,publish_event,settings):
+    dus.mqtt_client.on_message = lambda client, userdata, message: dus.detected(callback, publish_event, settings, message)
+    while True:
+        if stop_event.is_set():
+                break

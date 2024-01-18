@@ -54,7 +54,7 @@ def dl_callback(status,publish_event, dl_settings, code="DHTLIB_OK", verbose=Fal
 def run_dl(settings, threads, stop_event, input_queue):
     if settings['simulated']:
         print("Starting dl sumilator")
-        dl_thread = threading.Thread(target = run_dl_simulator, args=(input_queue, 2, dl_callback, stop_event,publish_event,settings))
+        dl_thread = threading.Thread(target = run_dl_simulator, args=(dl_callback, stop_event,publish_event,settings))
         dl_thread.start()
         threads.append(dl_thread)
         print(f"dl sumilator started")
