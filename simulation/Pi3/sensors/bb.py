@@ -4,7 +4,7 @@ from queue import Empty
 import paho.mqtt.client as mqtt
 from broker_settings import HOSTNAME
 
-class DB(object):
+class BB(object):
     def __init__(self, pin):
         self.pin = pin
         GPIO.setmode(GPIO.BCM)
@@ -40,7 +40,7 @@ class DB(object):
         except KeyboardInterrupt:
             GPIO.output(self.pin, False)
 
-def run_db_loop(buzzer, pitch, duration, delay,callback, stop_event,queue,publish_event, settings):
+def run_bb_loop(buzzer, pitch, duration, delay,callback, stop_event,queue,publish_event, settings):
     buzzer.mqtt_client.on_message = lambda client, userdata, message: buzzer.alarm(callback, publish_event, settings, message)
     buzzer.buzz(pitch, duration)
 

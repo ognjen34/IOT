@@ -63,7 +63,7 @@ def run_bb(settings, threads, stop_event,queue):
             with threading.Lock():
                 print("db sumilator started")
         else:
-            from sensors.db import run_bb_loop, BB
+            from sensors.bb import run_bb_loop, BB
             with threading.Lock():
                 print("Starting db loop")
             db = BB(settings['pin'])

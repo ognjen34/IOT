@@ -70,7 +70,7 @@ def gdht_callback(humidity, temperature, publish_event, gdht_settings, code="DHT
 def run_gdht(settings, threads, stop_event):
     if settings['simulated']:
         print("Starting gdht sumilator")
-        gdht_thread = threading.Thread(target = run_gdht_simulator, args=(2, gdht_callback, stop_event, publish_event, settings))
+        gdht_thread = threading.Thread(target = run_gdht_simulator, args=(10, gdht_callback, stop_event, publish_event, settings))
         gdht_thread.start()
         threads.append(gdht_thread)
         print("gdht sumilator started")
