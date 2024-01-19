@@ -31,6 +31,7 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe("Button")
     client.subscribe("Acceleration")
     client.subscribe("Gyro")
+    client.subscribe("Infrared")
 
 mqtt_client.on_connect = on_connect
 mqtt_client.on_message = lambda client, userdata, msg: save_to_db(json.loads(msg.payload.decode('utf-8')))
@@ -60,6 +61,17 @@ def store_data():
         return jsonify({"status": "error", "message": str(e)})
 
 
+@app.route('/brgb', methods=['POST'])
+def manage_brgb():
+    try:
+        data = request.get_json()
+        mode = data.get('mode')
+        print(mode)
+        mqtt_client.publish("brgb", mode)
+        return jsonify({"status": "success"})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
+      
 def handle_influx_query(query):
     try:
         query_api = influxdb_client.query_api()

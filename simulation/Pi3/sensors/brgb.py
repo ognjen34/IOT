@@ -1,7 +1,10 @@
 import RPi.GPIO as GPIO
+import paho.mqtt.client as mqtt
+from broker_settings import HOSTNAME
 
 class Brgb(object):
-    def __init__(self, settings):
+    def __init__(self, settings, callback):
+        self.callback = callback
         GPIO.setmode(GPIO.BCM)
         self.RED_PIN= settings['red_pin']
         self.GREEN_PIN = settings['green_pin']
@@ -10,8 +13,16 @@ class Brgb(object):
         GPIO.setup(self.RED_PIN, GPIO.OUT)
         GPIO.setup(self.GREEN_PIN, GPIO.OUT)
         GPIO.setup(self.BLUE_PIN, GPIO.OUT)
+        self.mqtt_client = mqtt.Client()
+        self.mqtt_client.connect(HOSTNAME, 1883, 60)
+        self.mqtt_client.loop_start()
+        self.mqtt_client.subscribe("brgb")
         
-    def run(self, mode):
+    def run(self):
+        self.mqtt_client.on_message = lambda client, userdata, message: self.set_mode(message)
+              
+    def set_mode(self, message):
+        mode = message.payload.decode("utf-8")
         if mode == "OFF":
             self.turnOff()
         if mode == "RED":
@@ -28,7 +39,7 @@ class Brgb(object):
             self.purple()
         if mode == "LIGHTBLUE":
             self.lightBlue()
-        
+        self.callback(self.settings, mode)
         
     def turnOff(self):
         GPIO.output(self.RED_PIN, GPIO.LOW)
