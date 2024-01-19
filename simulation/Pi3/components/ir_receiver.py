@@ -28,8 +28,8 @@ publisher_thread.start()
 
 def ir_receiver_callback(name, settings,button_name, publish_event):
     t = datetime.now()
-    print("="*20)
-    print({"timestamp": t, "name": name, "button": button_name})
+    # print("="*20)
+    # print({"timestamp": t, "name": name, "button": button_name})
     payload ={
         "measurement": settings['code'],
         "value": button_name,

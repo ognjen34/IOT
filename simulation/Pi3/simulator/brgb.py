@@ -1,12 +1,16 @@
 import time
 import random
-
-ButtonsNames = ["LEFT",   "RIGHT",      "UP",       "OFF",       "Cyan",          "Purple",          "Yellow",        "ON",        "4",         "5",         "6",         "7",         "8",          "9",        "*",         "0",        "#"]  # String list in same order as HEX list
+import paho.mqtt.client as mqtt
+from broker_settings import HOSTNAME
 
 def run_brgb_simulator(settings, callback, stop_event):
-    while True:
-        delay = 1
-        time.sleep(delay)
-        callback(settings, random.choice(ButtonsNames))
-        if stop_event.is_set():
-            break
+    mqtt_client = mqtt.Client()
+    mqtt_client.connect(HOSTNAME, 1883, 60)
+    mqtt_client.loop_start()
+    mqtt_client.subscribe("brgb")
+    mqtt_client.on_message = lambda client, userdata, message: set_mode(message, settings, callback)
+     
+def set_mode(message, settings, callback):
+    mode = message.payload.decode("utf-8")
+    callback(settings, mode)
+    
