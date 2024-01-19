@@ -10,6 +10,10 @@ import time
 from queue import Queue
 from components.b4sd import run_b4sd
 from components.ir_receiver import run_ir_receiver
+from components.brgb import run_brgb
+from components.rpir4 import run_rpir4
+from components.bb import run_bb
+from components.rdht4 import run_rdht4
 
 try:
     import RPi.GPIO as GPIO
@@ -42,9 +46,12 @@ if __name__ == "__main__":
     threads = []
     stop_event = threading.Event()
     try:
-        #dht1_settings = settings['RDHT1']
-        # run_b4sd(settings['B4SD'], threads, stop_event)
-        run_ir_receiver(settings['BIR'], threads, stop_event)
+        #run_b4sd(settings['B4SD'], threads, stop_event)
+        #run_ir_receiver(settings['BIR'], threads, stop_event)
+        #run_brgb(settings['BRGB'], threads, stop_event)
+        #run_rdht4(settings['RDHT4', threads, stop_event])
+        # run_bb(settings['BB'], threads, stop_event)
+        # run_rpir4(settings['rpir4'], threads, stop_event)
 
 
        
