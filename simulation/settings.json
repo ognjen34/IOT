@@ -153,7 +153,29 @@
         "blue_pin": 19,
         "runs_on": "PI3"
 
-    } 
+    },
+    "RPIR4": {
+        "simulated": true,
+        "name": "Room Pir",
+        "code": "RPIR4",
+        "pin": 1,
+        "runs_on": "PI3"
+    },
+    "RDHT4": {
+        "simulated": true,
+        "codename": "Room DHT",
+        "type": "RDHT4",
+        "pin": 5,
+        "runs_on": "PI3"
+    },
+    "BB": {
+        "simulated": true,
+        "name": "Bedroom buzzer",
+        "code": "BB",
+        "pin": 16,
+        "runs_on": "PI3"
+
+    }
     
     
 }
