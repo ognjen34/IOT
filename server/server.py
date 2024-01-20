@@ -34,6 +34,8 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe("Infrared")
     client.subscribe("alarm")
     client.subscribe("people")
+    client.subscribe("rpir")
+
 
 
 
@@ -52,7 +54,7 @@ def save_to_db(msg):
         )
         print(point)
         write_api.write(bucket=bucket, org=org, record=point)
-    if msg.topic == "people":
+    elif msg.topic == "people":
         people_inside += int(msg.payload.decode("utf-8"))
         if people_inside < 0 :
             people_inside = 0
@@ -62,6 +64,13 @@ def save_to_db(msg):
         )
         write_api.write(bucket=bucket, org=org, record=point)
         print(people_inside)
+
+    elif msg.topic == "rpir" :
+        print(people_inside)
+        if people_inside == 0 :
+            
+            mqtt_client.publish("alarm", "on")
+
 
     else :
         data = json.loads(msg.payload.decode('utf-8'))
@@ -94,6 +103,14 @@ def manage_brgb():
         mode = data.get('mode')
         print(mode)
         mqtt_client.publish("brgb", mode)
+        return jsonify({"status": "success"})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
+    
+@app.route('/alarmoff', methods=['GET'])
+def alarm_off():
+    try:
+        mqtt_client.publish("alarm", "off")
         return jsonify({"status": "success"})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
