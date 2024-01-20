@@ -71,6 +71,17 @@ def manage_brgb():
         return jsonify({"status": "success"})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
+    
+@app.route('/b4sd', methods=['POST'])
+def manage_b4sd():
+    try:
+        data = request.get_json()
+        mode = data.get('mode')
+        print(mode)
+        mqtt_client.publish("b4sd", mode)
+        return jsonify({"status": "success"})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
       
 def handle_influx_query(query):
     try:
