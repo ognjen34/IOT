@@ -48,9 +48,9 @@ if __name__ == "__main__":
     try:
         run_b4sd(settings['B4SD'], threads, stop_event)
         # run_ir_receiver(settings['BIR'], threads, stop_event)
-        # run_brgb(settings['BRGB'], threads, stop_event)
-        # run_rdht4(settings['RDHT4', threads, stop_event])
-        # run_bb(settings['BB'], threads, stop_event)
+        #run_brgb(settings['BRGB'], threads, stop_event)
+        #run_rdht4(settings['RDHT4', threads, stop_event])
+        run_bb(settings['BB'], threads, stop_event,input_queue)
         # run_rpir4(settings['rpir4'], threads, stop_event)
 
 

@@ -94,7 +94,7 @@
         "pin": 17,
         "runs_on":"PI3"},
     "GSG": {
-        "simulated": false,
+        "simulated": true,
         "name": "GSG - Garage",
         "runs_on": "PI2"
     },

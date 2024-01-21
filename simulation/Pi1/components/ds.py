@@ -58,7 +58,7 @@ def run_ds(settings,threads, stop_event):
             from sensors.ds import run_ds_loop, DS
             print("Starting ds loop")
             ds = DS(settings['pin'])
-            ds_thread = threading.Thread(target=run_ds_loop, args=(ds, 2, ds_callback, stop_event,publish_event,settings))
+            ds_thread = threading.Thread(target=run_ds_loop, args=(ds, 1, ds_callback, stop_event,publish_event,settings))
             ds_thread.start()
             threads.append(ds_thread)
             print("ds loop started")

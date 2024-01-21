@@ -53,19 +53,19 @@ if __name__ == "__main__":
         #gsg_settings = settings['GSG']
         #lcd_settings = settings['GLCD']
         #ds2_settings = settings['DS2']
-        dus2_settings = settings['DUS2']
-        dpir2_settings = settings['DPIR2']
+        #dus2_settings = settings['DUS2']
+        #dpir2_settings = settings['DPIR2']
         #gdht_settings = settings['GDHT']
-        #rpir3_settings = settings['RPIR3']
+        rpir3_settings = settings['RPIR3']
         #rdht3_settings = settings['RDHT3']
 
         #run_gsg(gsg_settings, threads, stop_event)
         #run_lcd(lcd_settings, threads, stop_event)
         #run_ds2(ds2_settings,threads,stop_event)
-        #run_rpir3(rpir3_settings, threads, stop_event)
+        run_rpir3(rpir3_settings, threads, stop_event)
 
-        run_dus2(dus2_settings, threads, stop_event)
-        run_dpir2(dpir2_settings, threads, stop_event)
+        #run_dus2(dus2_settings, threads, stop_event)
+        #run_dpir2(dpir2_settings, threads, stop_event)
         #run_gdht(gdht_settings, threads, stop_event)
         #run_rdht3(rdht3_settings, threads, stop_event)
 

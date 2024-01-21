@@ -57,6 +57,10 @@ class B4sd(object):
                 print(alarm)
                 if(s == alarm):
                     print('ALARM')
+                    self.mqtt_client.publish("buzz", "on")
+
+                if alarm == "":
+                    self.mqtt_client.publish("buzz", "off")
                 for digit in range(4):
                     for loop in range(0,7):
                         GPIO.output(self.segments[loop], self.num[s[digit]][loop])

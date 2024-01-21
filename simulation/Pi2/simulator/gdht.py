@@ -1,5 +1,7 @@
 import time
 import random
+import paho.mqtt.client as mqtt
+from broker_settings import HOSTNAME
 
 def generate_values(initial_temp = 25, initial_humidity=20):
       temperature = initial_temp
@@ -16,9 +18,13 @@ def generate_values(initial_temp = 25, initial_humidity=20):
       
 
 def run_gdht_simulator(delay, callback, stop_event, publish_event, settings):
+        mqtt_client = mqtt.Client()
+        mqtt_client.connect(HOSTNAME, 1883, 60)
         for h, t in generate_values():
-            time.sleep(delay)  # Delay between readings (adjust as needed)
+            time.sleep(delay) 
             callback(h, t, publish_event, settings)
+            mqtt_client.publish("gdht/temperature", t)
+            mqtt_client.publish("gdht/humidity", h)
             if stop_event.is_set():
                   break
               

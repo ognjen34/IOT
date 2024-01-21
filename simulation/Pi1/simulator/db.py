@@ -1,32 +1,50 @@
 import time
 from queue import Empty
 import threading
+import paho.mqtt.client as mqtt
+from broker_settings import HOSTNAME
+
+
+
+class DB(object) :
+    def __init__(self,callback, publish_event, settings) :
+        self.mqtt_client = mqtt.Client()
+        self.mqtt_client.connect(HOSTNAME, 1883, 60)
+        self.mqtt_client.loop_start()
+        self.mqtt_client.subscribe("alarm")
+        self.mqtt_client.on_message = lambda client, userdata, message: self.alarm(callback, publish_event, settings, message)
+        self.is_buzzing = False
+
+    def alarm(self,callback, publish_event, settings, message):
+        payload = message.payload.decode("utf-8")
+        
+        if payload == 'on' :
+            self.is_buzzing = True
+            callback(1,publish_event,settings)             
+
+        if payload == 'off' :
+            self.is_buzzing = False
+            callback(0,publish_event,settings)             
+
+
+
+
 
 def run_db_simulator(queue, pitch, callback, stop_event, publish_event, settings):
+    db = DB(callback, publish_event, settings)
     while not stop_event.is_set():
-        try:
-            action = queue.get(timeout=1)
-            if action == "buzz":
-                callback(1,publish_event,settings)             
-                with threading.Lock():
-                    p = "z"
-                    if pitch > 500:
-                        p = "Z"
-                    if pitch > 800:
-                        p="Z!"
-                    while True:
-                        callback(1,publish_event,settings) 
-                        try:
-                            sub_action = queue.get(timeout=0.1)
-                            print(sub_action)
-                            if sub_action == "stop_buzz":
-                                break
-                            if stop_event.is_set():
-                                break
-                        except Empty:
-                            pass
-                        time.sleep(0.5)
-                time.sleep(1)
-                callback(0,publish_event,settings)             
-        except Empty:
-            pass
+        if db.is_buzzing :
+            print("buzz")
+            callback(1,publish_event,settings)             
+            time.sleep(3)
+        # try:
+        #     action = queue.get(timeout=1)
+        #     if action == "buzz":
+        #         db.mqtt_client.publish("alarm", "on")
+        #         print("start")  
+        #     if action == "stop_buzz":
+        #         db.mqtt_client.publish("alarm", "off")
+
+        #         print("stop")             
+        # except Empty:
+        #     pass

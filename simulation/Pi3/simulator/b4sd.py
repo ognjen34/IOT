@@ -23,9 +23,12 @@ def run_b4sd_simulator(settings, stop_event, callback, publish_event):
             s = str(n).rjust(4)
             if str(s) == alarm:
                 print("ALARM")
-                mqtt_client.publish("bb", "turn_on")
+                mqtt_client.publish("buzz", "on")
+            if alarm == "":
+                mqtt_client.publish("buzz", "off")
+
             callback(settings, s, publish_event)
-            time.sleep(30)
+            time.sleep(5)
 
 def get_message(message):
     global received_message

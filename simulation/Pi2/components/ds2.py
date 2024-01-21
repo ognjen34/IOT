@@ -58,7 +58,7 @@ def run_ds2(settings,threads, stop_event):
             from sensors.ds2 import run_ds2_loop, DS2
             print("Starting ds2 loop")
             ds2 = DS2(settings['pin'])
-            ds2_thread = threading.Thread(target=run_ds2_loop, args=(ds2, 2, ds2_callback, stop_event,publish_event,settings))
+            ds2_thread = threading.Thread(target=run_ds2_loop, args=(ds2, 1, ds2_callback, stop_event,publish_event,settings))
             ds2_thread.start()
             threads.append(ds2_thread)
             print("ds loop started")

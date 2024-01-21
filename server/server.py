@@ -9,7 +9,8 @@ app = Flask(__name__)
 
 
 # InfluxDB Configuration
-token = "1R3I4f3pTvN4d3RSD-NIPA5qauxkfkiSw21Ghpeam-cwROHuHZ_goEUvM_LGz--YKCh6hEUU725SYmlru6gm8w=="
+# token = "imF1ROkkg2qx5SO_iGok09SliuUbknV-ygt7T_WRzxhOiipjqtsS0AUm7CwSq8tT-Ytx4KhZbTE-jENqEWtWzA=="
+token = "oTfxHLqLa5PV0axqZoqvXJf01dK9Q4Tn-6A6aVrHeuQ-CaoaL_EJw5x51KP5o7w9IA5ugYS0FMqrNXXdBUITHA=="
 org = "ftn"
 url = "http://localhost:8086"
 bucket = "iot"
@@ -32,22 +33,57 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe("Acceleration")
     client.subscribe("Gyro")
     client.subscribe("Infrared")
+    client.subscribe("alarm")
+    client.subscribe("people")
+    client.subscribe("rpir")
+
+
+
 
 mqtt_client.on_connect = on_connect
-mqtt_client.on_message = lambda client, userdata, msg: save_to_db(json.loads(msg.payload.decode('utf-8')))
+mqtt_client.on_message = lambda client, userdata, msg: save_to_db(msg)
+people_inside = 0
 
-
-def save_to_db(data):
+def save_to_db(msg):
+    global people_inside
     write_api = influxdb_client.write_api(write_options=SYNCHRONOUS)
-    point = (
-        Point(data["measurement"])
-        .tag("simulated", data["simulated"])
-        .tag("runs_on", data["runs_on"])
-        .tag("name", data["name"])
-        .field("measurement", data["value"])
-    )
-    print(point)
-    write_api.write(bucket=bucket, org=org, record=point)
+
+    if msg.topic == "alarm":
+        point = (
+            Point("alarm")
+            .field("measurement", msg.payload.decode("utf-8"))
+        )
+        print(point)
+        write_api.write(bucket=bucket, org=org, record=point)
+    elif msg.topic == "people":
+        people_inside += int(msg.payload.decode("utf-8"))
+        if people_inside < 0 :
+            people_inside = 0
+        point = (
+            Point("People")
+            .field("measurement", people_inside)
+        )
+        write_api.write(bucket=bucket, org=org, record=point)
+        print(people_inside)
+
+    elif msg.topic == "rpir" :
+        print(people_inside)
+        if people_inside == 0 :
+            
+            mqtt_client.publish("alarm", "on")
+
+
+    else :
+        data = json.loads(msg.payload.decode('utf-8'))
+        point = (
+            Point(data["measurement"])
+            .tag("simulated", data["simulated"])
+            .tag("runs_on", data["runs_on"])
+            .tag("name", data["name"])
+            .field("measurement", data["value"])
+        )
+        print(point)
+        write_api.write(bucket=bucket, org=org, record=point)
 
 
 # Route to store dummy data
@@ -79,6 +115,16 @@ def manage_b4sd():
         mode = data.get('mode')
         print(mode)
         mqtt_client.publish("b4sd", mode)
+        return jsonify({"status": "success"})
+
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
+    
+    
+@app.route('/alarmoff', methods=['GET'])
+def alarm_off():
+    try:
+        mqtt_client.publish("alarm", "off")
         return jsonify({"status": "success"})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})

@@ -26,10 +26,10 @@ class DUS2(object):
             detect2= self.generate_values()
 
         if detect1 > detect2 :
-            self.people_inside+= 1
+            self.mqtt_client.publish("people", +1)
         else :
-            if self.people_inside > 0 :
-                self.people_inside-= 1
+            self.mqtt_client.publish("people", -1)
+
         print(self.people_inside)
 
 

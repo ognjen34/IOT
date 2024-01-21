@@ -1,8 +1,11 @@
 
 import RPi.GPIO as GPIO
 import time
+import paho.mqtt.client as mqtt
+from broker_settings import HOSTNAME
 
 class GDHT(object):
+	
 	DHTLIB_OK = 0
 	DHTLIB_ERROR_CHECKSUM = -1
 	DHTLIB_ERROR_TIMEOUT = -2
@@ -17,6 +20,8 @@ class GDHT(object):
 	def __init__(self,pin):
 		self.pin = pin
 		self.bits = [0,0,0,0,0]
+		self.mqtt_client = mqtt.Client()
+		self.mqtt_client.connect(HOSTNAME, 1883, 60)
 	#Read DHT sensor, store the original data in bits[]	
 	def readSensor(self,pin,wakeupDelay):
 		mask = 0x80
@@ -92,6 +97,8 @@ def run_gdht_loop(gdht, delay, callback, stop_event, publish_event, settings):
 			check = gdht.readDHT11()
 			code = parseCheckCode(check)
 			humidity, temperature = gdht.humidity, gdht.temperature
+			gdht.mqtt_client.publish("gdht/temperature", temperature)
+			gdht.mqtt_client.publish("gdht/humidity", humidity)
 			callback(humidity, temperature, publish_event, settings, code)
 			if stop_event.is_set():
 					break
