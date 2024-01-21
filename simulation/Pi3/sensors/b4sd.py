@@ -1,5 +1,7 @@
 import RPi.GPIO as GPIO
 import time
+import paho.mqtt.client as mqtt
+from broker_settings import HOSTNAME
 
 class B4sd(object):
     num = {
@@ -31,8 +33,20 @@ class B4sd(object):
         for digit in self.digits:
             GPIO.setup(digit, GPIO.OUT)
             GPIO.output(digit, 1)
-    
-    def run(self):
+        self.message = None
+
+        self.mqtt_client = mqtt.Client()
+        self.mqtt_client.connect(HOSTNAME, 1883, 60)
+        self.mqtt_client.loop_start()
+        self.mqtt_client.subscribe("b4sd")
+        
+    def get_message(self, message):
+        self.message = message
+            
+    def run(self, message):
+        self.mqtt_client.on_message = lambda client, userdata, message: self.get_message(message)
+        if message != None:
+            alarm = self.message.payload.decode("utf-8")
         try:
             while True:
                 if self.stop_event.is_set():
@@ -40,6 +54,13 @@ class B4sd(object):
                     break
                 n = time.ctime()[11:13]+time.ctime()[14:16]
                 s = str(n).rjust(4)
+                print(alarm)
+                if(s == alarm):
+                    print('ALARM')
+                    self.mqtt_client.publish("buzz", "on")
+
+                if alarm == "":
+                    self.mqtt_client.publish("buzz", "off")
                 for digit in range(4):
                     for loop in range(0,7):
                         GPIO.output(self.segments[loop], self.num[s[digit]][loop])
