@@ -13,6 +13,7 @@ class BB(object):
         self.mqtt_client.connect(HOSTNAME, 1883, 60)
         self.mqtt_client.loop_start()
         self.mqtt_client.subscribe("alarm")
+        self.mqtt_client.subscribe("buzz")
         self.is_buzzing = False
 
     def alarm(self,callback, publish_event, settings, message):

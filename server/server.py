@@ -9,7 +9,8 @@ app = Flask(__name__)
 
 
 # InfluxDB Configuration
-token = "imF1ROkkg2qx5SO_iGok09SliuUbknV-ygt7T_WRzxhOiipjqtsS0AUm7CwSq8tT-Ytx4KhZbTE-jENqEWtWzA=="
+# token = "imF1ROkkg2qx5SO_iGok09SliuUbknV-ygt7T_WRzxhOiipjqtsS0AUm7CwSq8tT-Ytx4KhZbTE-jENqEWtWzA=="
+token = "oTfxHLqLa5PV0axqZoqvXJf01dK9Q4Tn-6A6aVrHeuQ-CaoaL_EJw5x51KP5o7w9IA5ugYS0FMqrNXXdBUITHA=="
 org = "ftn"
 url = "http://localhost:8086"
 bucket = "iot"
@@ -106,6 +107,19 @@ def manage_brgb():
         return jsonify({"status": "success"})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
+    
+@app.route('/b4sd', methods=['POST'])
+def manage_b4sd():
+    try:
+        data = request.get_json()
+        mode = data.get('mode')
+        print(mode)
+        mqtt_client.publish("b4sd", mode)
+        return jsonify({"status": "success"})
+
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
+    
     
 @app.route('/alarmoff', methods=['GET'])
 def alarm_off():
