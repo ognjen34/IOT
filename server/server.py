@@ -13,8 +13,8 @@ socketio = SocketIO(app, cors_allowed_origins="*")  # "*" allows all origins, re
 
 
 # InfluxDB Configuration
-token = "imF1ROkkg2qx5SO_iGok09SliuUbknV-ygt7T_WRzxhOiipjqtsS0AUm7CwSq8tT-Ytx4KhZbTE-jENqEWtWzA=="
-#token = "oTfxHLqLa5PV0axqZoqvXJf01dK9Q4Tn-6A6aVrHeuQ-CaoaL_EJw5x51KP5o7w9IA5ugYS0FMqrNXXdBUITHA=="
+# token = "imF1ROkkg2qx5SO_iGok09SliuUbknV-ygt7T_WRzxhOiipjqtsS0AUm7CwSq8tT-Ytx4KhZbTE-jENqEWtWzA=="
+token = "oTfxHLqLa5PV0axqZoqvXJf01dK9Q4Tn-6A6aVrHeuQ-CaoaL_EJw5x51KP5o7w9IA5ugYS0FMqrNXXdBUITHA=="
 org = "ftn"
 url = "http://localhost:8086"
 bucket = "iot"
