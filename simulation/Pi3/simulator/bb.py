@@ -39,14 +39,4 @@ def run_bb_simulator(queue, pitch, callback, stop_event, publish_event, settings
             print("buzz")
             callback(1,publish_event,settings)             
             time.sleep(3)
-        try:
-            action = queue.get(timeout=1)
-            if action == "buzz":
-                bb.mqtt_client.publish("alarm", "on")
-                print("start")  
-            if action == "stop_buzz":
-                bb.mqtt_client.publish("alarm", "off")
-
-                print("stop")             
-        except Empty:
-            pass
+        
