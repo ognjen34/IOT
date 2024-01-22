@@ -17,7 +17,7 @@ import { Link, useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import axios from "axios";
 
-const pages = ["Pi1", "Pi2", "Pi3"];
+const pages = ["Pi1", "Pi2", "Pi3","Alarm"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
@@ -78,7 +78,7 @@ function ResponsiveAppBar() {
 
 
   return (
-    <AppBar sx={{ position: "relative" }}>
+    <AppBar sx={{ position: "fixed" }}>
       <Container maxWidth="xl" sx={{ position: "relative" }}>
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

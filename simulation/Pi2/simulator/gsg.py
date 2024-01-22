@@ -18,7 +18,7 @@ def generate_sensor_values():
         yield [normalized_accel, normalized_gyro]
 
 def run_gsg_simulator(delay, callback, stop_event, publish_event, settings):
-    threshold = 0.37  # Set your threshold for significant gyroscope movement
+    threshold = 0.38  # Set your threshold for significant gyroscope movement
     mqtt_client = mqtt.Client()
     mqtt_client.connect(HOSTNAME, 1883, 60)
     for sensor_data in generate_sensor_values():

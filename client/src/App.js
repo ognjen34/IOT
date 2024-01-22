@@ -13,22 +13,26 @@ import {
 import PI1 from "./Pages/Pi1";
 import PI3 from "./Pages/Pi3";
 import PI2 from "./Pages/Pi2";
+import Alarm from "./Pages/Alarm";
+import { Container } from "@mui/material";
 
 function App() {
   
 
   return (
     <div className="App">
-      <Navbar />
+      
 
       <Routes>
         <Route path="/" element={<PI1 />} />
         <Route path="/pi1" element={<PI1 />} />
         <Route path="/pi2" element={<PI2 />} />
         <Route path="/pi3" element={<PI3 />} />
-      </Routes>
+        <Route path="/alarm" element={<Alarm />} />
 
-      <Outlet style={{ flex: 1, overflowY: "auto" }}></Outlet>
+      </Routes>
+      <Navbar />
+      <Outlet></Outlet>
     </div>
   );
 }

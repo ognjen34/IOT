@@ -18,7 +18,6 @@ def run_ds_simulator(delay, callback,stop_event,publish_event,settings):
         mqtt_client = mqtt.Client()
         mqtt_client.connect(HOSTNAME, 1883, 60)
         for _ in generate_values():
-            mqtt_client.publish("ds", "detected")
             time.sleep(delay) 
             number = random.randint(3, 7)
             for i in range(number) :
