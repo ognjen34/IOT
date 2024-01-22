@@ -52,7 +52,7 @@
         "simulated": true,
         "pin": 17,
         "runs_on": "PI1",
-        "name": "MS - Enterance"
+        "name": "PIR - Enterance"
       },
     "DMS": {
         "simulated": true,
@@ -71,7 +71,7 @@
         "simulated": true,
         "pin": 17,
         "runs_on": "PI1",
-        "name": "Motion Sensor - Room1"
+        "name": "PIR - Room1"
     },
     "RPIR2":{
         "simulated": true,
@@ -90,7 +90,7 @@
     "BIR": {
         "simulated": true,
         "code": "BIR",
-        "name": "BIR- Bedroom",
+        "name": "BIR - Bedroom",
         "pin": 17,
         "runs_on":"PI3"},
     "GSG": {
@@ -124,13 +124,13 @@
         "simulated": true,
         "pin": 17,
         "runs_on": "PI2",
-        "name": "MS- Garage"
+        "name": "PIR - Garage"
       },
       "RPIR3": {
         "simulated": true,
         "pin": 17,
         "runs_on": "PI2",
-        "name": "MS - Room3"
+        "name": "PIR - Room3"
       },
       "GDHT": {
         "simulated": true,
@@ -146,7 +146,7 @@
     },
     "BRGB": {
         "simulated": true,
-        "name": "Bedroom RGB",
+        "name": "RGB - Bedroom",
         "code": "BRGB",
         "red_pin": 12,
         "green_pin": 13,
@@ -156,21 +156,20 @@
     },
     "RPIR4": {
         "simulated": true,
-        "name": "Room Pir",
+        "name": "PIR - Room4",
         "code": "RPIR4",
         "pin": 1,
         "runs_on": "PI3"
     },
     "RDHT4": {
         "simulated": true,
-        "codename": "Room DHT",
-        "type": "RDHT4",
+        "name": "DHT - Room4",
         "pin": 5,
         "runs_on": "PI3"
     },
     "BB": {
         "simulated": true,
-        "name": "Bedroom buzzer",
+        "name": "BB - Bedroom",
         "code": "BB",
         "pin": 16,
         "runs_on": "PI3"

@@ -54,35 +54,33 @@ if __name__ == "__main__":
     threads = []
     stop_event = threading.Event()
     try:
-        #rdht1_settings = settings['RDHT1']
-        #rdht2_settings = settings['RDHT2']
+        rdht1_settings = settings['RDHT1']
+        rdht2_settings = settings['RDHT2']
 
-        #dus1_settings = settings['DUS1']
-        #dl_settings = settings['DL']
-        #ds_settings = settings['DS1']
+        dus1_settings = settings['DUS1']
+        dl_settings = settings['DL']
+        ds_settings = settings['DS1']
         ds1_settings = settings['DS1']
         db_settings = settings['DB']
-        #dpir1_settings = settings['DPIR1']
-        #rpir1_settings = settings['RPIR1']
-        #rpir2_settings = settings['RPIR2']
+        dpir1_settings = settings['DPIR1']
+        rpir1_settings = settings['RPIR1']
+        rpir2_settings = settings['RPIR2']
         dms_settings = settings['DMS']
 
 
-        #run_dus(dus1_settings, threads, stop_event)
-        
+        run_dus(dus1_settings, threads, stop_event)
         run_db(db_settings,threads,stop_event,input_queue)
-        run_ds(ds1_settings,threads,stop_event)
-        #run_rdht1(rdht1_settings, threads, stop_event)
-        #run_rdht2(rdht2_settings, threads, stop_event)
+        run_rdht1(rdht1_settings, threads, stop_event)
+        run_rdht2(rdht2_settings, threads, stop_event)
 
 
         
 
-        #run_dus(dus1_settings, threads, stop_event)
-        #run_dl(dl_settings,threads,stop_event,input_queue)
-        #run_dpir1(dpir1_settings, threads, stop_event)
-        #run_rpir1(rpir1_settings, threads, stop_event)
-        #run_rpir2(rpir2_settings, threads, stop_event)
+        run_dus(dus1_settings, threads, stop_event)
+        run_dl(dl_settings,threads,stop_event,input_queue)
+        run_dpir1(dpir1_settings, threads, stop_event)
+        run_rpir1(rpir1_settings, threads, stop_event)
+        run_rpir2(rpir2_settings, threads, stop_event)
         run_dms(dms_settings, threads, stop_event)
 
         input_thread = threading.Thread(target=user_input_thread, args=(input_queue, stop_event,settings))

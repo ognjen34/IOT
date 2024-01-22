@@ -3,14 +3,18 @@ from influxdb_client import InfluxDBClient, Point
 from influxdb_client.client.write_api import SYNCHRONOUS
 import paho.mqtt.client as mqtt
 import json
+from flask_cors import CORS  # Import CORS
+from flask_socketio import SocketIO, emit  # Import SocketIO
 
 
 app = Flask(__name__)
+CORS(app)
+socketio = SocketIO(app, cors_allowed_origins="*")  # "*" allows all origins, replace with your specific origin
 
 
 # InfluxDB Configuration
-# token = "imF1ROkkg2qx5SO_iGok09SliuUbknV-ygt7T_WRzxhOiipjqtsS0AUm7CwSq8tT-Ytx4KhZbTE-jENqEWtWzA=="
-token = "oTfxHLqLa5PV0axqZoqvXJf01dK9Q4Tn-6A6aVrHeuQ-CaoaL_EJw5x51KP5o7w9IA5ugYS0FMqrNXXdBUITHA=="
+token = "imF1ROkkg2qx5SO_iGok09SliuUbknV-ygt7T_WRzxhOiipjqtsS0AUm7CwSq8tT-Ytx4KhZbTE-jENqEWtWzA=="
+#token = "oTfxHLqLa5PV0axqZoqvXJf01dK9Q4Tn-6A6aVrHeuQ-CaoaL_EJw5x51KP5o7w9IA5ugYS0FMqrNXXdBUITHA=="
 org = "ftn"
 url = "http://localhost:8086"
 bucket = "iot"
@@ -55,6 +59,12 @@ def save_to_db(msg):
         )
         print(point)
         write_api.write(bucket=bucket, org=org, record=point)
+        if msg.payload.decode("utf-8") == "on":
+            socketio.emit('alarm', "red")
+        else :
+            socketio.emit('alarm', "blue")
+
+
     elif msg.topic == "people":
         people_inside += int(msg.payload.decode("utf-8"))
         if people_inside < 0 :
@@ -65,6 +75,8 @@ def save_to_db(msg):
         )
         write_api.write(bucket=bucket, org=org, record=point)
         print(people_inside)
+        socketio.emit('people', str(people_inside))
+
 
     elif msg.topic == "rpir" :
         print(people_inside)
