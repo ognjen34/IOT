@@ -19,6 +19,7 @@ class DS2(object):
         GPIO.remove_event_detect(self.pin)
         self.start_time = None
         self.mqtt_client.publish("alarm", "off")
+
     
     def button_changed(self, event):
         if GPIO.input(self.pin) == GPIO.HIGH:

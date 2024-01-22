@@ -40,6 +40,9 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe("alarm")
     client.subscribe("people")
     client.subscribe("rpir")
+    client.subscribe("gdht/temperature")
+    client.subscribe("gdht/humidity")
+
 
 
 
@@ -76,6 +79,11 @@ def save_to_db(msg):
         write_api.write(bucket=bucket, org=org, record=point)
         print(people_inside)
         socketio.emit('people', str(people_inside))
+    elif msg.topic == "gdht/humidity" :
+        socketio.emit('humidity', str(msg.payload.decode("utf-8")))
+    elif msg.topic == "gdht/temperature" :
+        socketio.emit('temperature', str(msg.payload.decode("utf-8")))
+
 
 
     elif msg.topic == "rpir" :

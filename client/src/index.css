@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* Hide scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* or any color you prefer for the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* or any color you prefer for the thumb */
+}

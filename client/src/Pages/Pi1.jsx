@@ -21,6 +21,7 @@ function PI1() {
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
+        marginTop : "100px"
       }}
     >
       <DeviceCard
@@ -124,6 +125,17 @@ function PI1() {
             width="100%"
             height="200"
             frameBorder="0"
+          ></iframe>
+        }
+      />
+      <DeviceCard
+        label={"DMS - Enterance"}
+        graph={
+          <iframe
+            src={`http://localhost:3000/d-solo/a0effb4f-4d09-48f4-9de3-af7f4cc1bbed/iot?orgId=1&from=${fromTimestamp}&to=${toTimestamp}&panelId=30`}
+            width="100%"
+            height="200"
+            frameborder="0"
           ></iframe>
         }
       />

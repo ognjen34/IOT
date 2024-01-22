@@ -68,20 +68,22 @@ if __name__ == "__main__":
         dms_settings = settings['DMS']
 
 
-        run_dus(dus1_settings, threads, stop_event)
-        run_db(db_settings,threads,stop_event,input_queue)
-        run_rdht1(rdht1_settings, threads, stop_event)
-        run_rdht2(rdht2_settings, threads, stop_event)
+        # run_dus(dus1_settings, threads, stop_event)
+        # run_db(db_settings,threads,stop_event,input_queue)
+        # run_rdht1(rdht1_settings, threads, stop_event)
+        # run_rdht2(rdht2_settings, threads, stop_event)
 
 
         
 
-        run_dus(dus1_settings, threads, stop_event)
-        run_dl(dl_settings,threads,stop_event,input_queue)
-        run_dpir1(dpir1_settings, threads, stop_event)
-        run_rpir1(rpir1_settings, threads, stop_event)
-        run_rpir2(rpir2_settings, threads, stop_event)
+        # run_dus(dus1_settings, threads, stop_event)
+        # run_dl(dl_settings,threads,stop_event,input_queue)
+        # run_dpir1(dpir1_settings, threads, stop_event)
+        # run_rpir1(rpir1_settings, threads, stop_event)
+        # run_rpir2(rpir2_settings, threads, stop_event)
         run_dms(dms_settings, threads, stop_event)
+        run_ds(ds1_settings, threads, stop_event)
+
 
         input_thread = threading.Thread(target=user_input_thread, args=(input_queue, stop_event,settings))
         input_thread.start()
