@@ -43,12 +43,13 @@ class B4sd(object):
     def get_message(self, message):
         self.message = message
             
-    def run(self, message):
-        self.mqtt_client.on_message = lambda client, userdata, message: self.get_message(message)
-        if message != None:
-            alarm = self.message.payload.decode("utf-8")
+    def run(self):
+        
         try:
             while True:
+                self.mqtt_client.on_message = lambda client, userdata, message: self.get_message(message)
+                if self.message != None:
+                    alarm = self.message.payload.decode('utf-8')
                 if self.stop_event.is_set():
                     self._stop()
                     break
@@ -59,7 +60,8 @@ class B4sd(object):
                     print('ALARM')
                     self.mqtt_client.publish("buzz", "on")
 
-                if alarm == "":
+                if alarm == "alarmClockOff":
+                    print("NIJE VISE ALARM")
                     self.mqtt_client.publish("buzz", "off")
                 for digit in range(4):
                     for loop in range(0,7):
