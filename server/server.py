@@ -13,8 +13,8 @@ socketio = SocketIO(app, cors_allowed_origins="*")  # "*" allows all origins, re
 
 
 # InfluxDB Configuration
-token = "imF1ROkkg2qx5SO_iGok09SliuUbknV-ygt7T_WRzxhOiipjqtsS0AUm7CwSq8tT-Ytx4KhZbTE-jENqEWtWzA=="
-#token = "oTfxHLqLa5PV0axqZoqvXJf01dK9Q4Tn-6A6aVrHeuQ-CaoaL_EJw5x51KP5o7w9IA5ugYS0FMqrNXXdBUITHA=="
+# token = "imF1ROkkg2qx5SO_iGok09SliuUbknV-ygt7T_WRzxhOiipjqtsS0AUm7CwSq8tT-Ytx4KhZbTE-jENqEWtWzA=="
+token = "oTfxHLqLa5PV0axqZoqvXJf01dK9Q4Tn-6A6aVrHeuQ-CaoaL_EJw5x51KP5o7w9IA5ugYS0FMqrNXXdBUITHA=="
 org = "ftn"
 url = "http://localhost:8086"
 bucket = "iot"
@@ -42,6 +42,7 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe("rpir")
     client.subscribe("gdht/temperature")
     client.subscribe("gdht/humidity")
+    client.subscribe("alarmClock")
 
 
 
@@ -54,7 +55,7 @@ people_inside = 0
 def save_to_db(msg):
     global people_inside
     write_api = influxdb_client.write_api(write_options=SYNCHRONOUS)
-
+    
     if msg.topic == "alarm":
         point = (
             Point("alarm")
@@ -67,6 +68,12 @@ def save_to_db(msg):
         else :
             socketio.emit('alarm', "blue")
 
+    elif msg.topic == "alarmClock":
+        print("ovdee sam")
+        if msg.payload.decode("utf-8") == "on":
+            socketio.emit('alarmClock', "red")
+        else :
+            socketio.emit('alarmClock', "blue")
 
     elif msg.topic == "people":
         people_inside += int(msg.payload.decode("utf-8"))
@@ -135,6 +142,8 @@ def manage_b4sd():
         mode = data.get('mode')
         print(mode)
         mqtt_client.publish("b4sd", mode)
+        if mode == "alarmClockOff":
+            mqtt_client.publish("alarmClock", "off")
         return jsonify({"status": "success"})
 
     except Exception as e:
