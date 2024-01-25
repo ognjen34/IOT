@@ -63,14 +63,12 @@ class DMS:
                 while True:
                     passcode = self.get_passcode()
                     if passcode != None:
-                        break
-
-                if passcode != ['1','2','3','4'] :
-                    self.mqtt_client.publish("alarm","on")
-                else :
-                    self.alarm_on = False
-                    self.mqtt_client.publish("alarm","off")
-                    
+                        if passcode != ['1','2','3','4'] :
+                            self.mqtt_client.publish("alarm","on")
+                        else :
+                            self.alarm_on = False
+                            self.mqtt_client.publish("alarm","off")
+                    break
                 self.is_typing = False
 
     def get_passcode(self):
